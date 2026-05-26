@@ -4,11 +4,11 @@ import mysql from "mysql2/promise"
 
 async function conexao() {
     const pool = mysql.createPool({
-        host: , 
-        port: ,
-        user: , 
-        password: , 
-        database:
+        host: "localhost" , 
+        port: 3306 ,
+        user: "root" , 
+        password: "1234" , 
+        database: "relacaoVeiculo", 
     })
     return pool
 } // <-- Fechando a função conexao
@@ -34,4 +34,4 @@ async function testarConexao() {
   }
 }
 
-module.exports = { conexao, closeConexao, testarConexao }
+export { conexao, closeConexao, testarConexao }
