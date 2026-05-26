@@ -1,25 +1,33 @@
-const {conexao} = require('../conexao.js')
+import { conexao } from "../conexao.js";
 
-async function editarParcialmenteCliente(codigo, campo, valor){
+async function editarParcialmenteRegistro(codigo, campo, valor) {
+
     const data = [valor, codigo]
-    
-    const colunasPermitidas = ['nome', 'email', 'telefone', 'id_endereco', 'id_status', 'limite']; // Adicione as colunas permitidas
+
+    const colunasPermitidas = [
+        'dataEntrada',
+        'horarioEntrada',
+        'dataSaida',
+        'horarioSaida',
+        'id_proprietario'
+    ];
+
     if (!colunasPermitidas.includes(campo)) {
         throw new Error('Coluna inválida');
     }
 
-    const sql = `UPDATE tbl_cliente set ${campo} = ? WHERE codigo = ? ;`
+    const sql = `UPDATE registro SET ${campo} = ? WHERE codigo = ?;`
+
     const conn = await conexao()
-    
+
     try {
-        // Executar a consulta
         const [results] = await conn.query(sql, data);
 
         await conn.end()
         return results
-      } catch (err) {
+    } catch (err) {
         return err.message
-      }
+    }
 }
 
-module.exports = {editarParcialmenteCliente}
+export { editarParcialmenteRegistro }
