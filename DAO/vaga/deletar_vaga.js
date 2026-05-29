@@ -1,19 +1,19 @@
-const {conexao} = require('../conexao.js')
+import { conexao } from "../conexao.js";
 
-async function deletarCliente(codigo){
-    
-    const sql = `DELETE FROM tbl_cliente WHERE codigo = ?`
+async function deletarVaga(id_vaga) {
+
+    const sql = `DELETE FROM vaga WHERE id_vaga = ?`
+
     const conn = await conexao()
-    
+
     try {
-        // Executar a consulta
-        const [results] = await conn.query(sql,[codigo]);
+        const [results] = await conn.query(sql, [id_vaga]);
 
         await conn.end()
         return results
-      } catch (err) {
+    } catch (err) {
         return err.message
-      }
+    }
 }
 
-module.exports = {deletarCliente}
+export { deletarVaga }

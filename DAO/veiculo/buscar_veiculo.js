@@ -1,35 +1,33 @@
-const {conexao} = require('../conexao.js')
+import { conexao } from "../conexao.js";
 
+async function buscarVeiculos() {
 
-async function buscarClientes(){
-  console.log('DAO de CLIENTE')
-    const sql = `SELECT * FROM tbl_cliente;`
-    
+    const sql = `SELECT * FROM veiculo;`
+
     const conn = await conexao()
+
     try {
-        // Executar a consulta
-        const [rows, fields] = await conn.query(sql);
+        const [rows] = await conn.query(sql);
         await conn.end()
         return rows
-      } catch (err) {
+    } catch (err) {
         return err.message
-      }
+    }
 }
 
-async function buscarCliente(codigo){
-    const sql = `SELECT * FROM tbl_cliente WHERE codigo = ?`
-    
+async function buscarVeiculo(placa) {
+
+    const sql = `SELECT * FROM veiculo WHERE placa = ?`
+
     const conn = await conexao()
-    
+
     try {
-        // Executar a consulta
-        const [rows, fields] = await conn.query(sql, [codigo]);
+        const [rows] = await conn.query(sql, [placa]);
         await conn.end()
         return rows
-      } catch (err) {
+    } catch (err) {
         return err.message
-      }
+    }
 }
 
-
-module.exports = {buscarClientes, buscarCliente}
+export { buscarVeiculos, buscarVeiculo }

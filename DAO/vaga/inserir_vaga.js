@@ -1,19 +1,21 @@
-const {conexao} = require('../conexao.js')
+import { conexao } from "../conexao.js";
 
-async function incluirCliente(infos){
+async function inserirVaga(infos) {
+
     const data = [infos]
-    const sql = `INSERT INTO tbl_cliente (codigo, nome, telefone, limite, id_endereco, id_status) VALUES ?`
+
+    const sql = `INSERT INTO vaga (tipo, statuss) VALUES ?`
+
     const conn = await conexao()
-    
+
     try {
-        // Executar a consulta
-        const [results] = await conn.query(sql,[data]);
+        const [results] = await conn.query(sql, [data]);
 
         await conn.end()
         return results
-      } catch (err) {
+    } catch (err) {
         return err.message
-      }
+    }
 }
 
-module.exports = {incluirCliente}
+export { inserirVaga }

@@ -1,19 +1,23 @@
-const {conexao} = require('../conexao.js')
+import { conexao } from "../conexao.js";
 
-async function editarIntegralmenteCliente(infos, codigo){
+async function editarIntegralmenteVaga(infos, id_vaga) {
 
-    const sql = `UPDATE tbl_cliente SET telefone = ?, nome = ?, limite = ?, id_endereco = ?, id_status = ? WHERE codigo = ${codigo} ;`
+    const sql = `
+        UPDATE vaga
+        SET tipo = ?, statuss = ?
+        WHERE id_vaga = ?;
+    `
+
     const conn = await conexao()
-    
+
     try {
-        // Executar a consulta
-        const [results] = await conn.query(sql,[...infos]);
+        const [results] = await conn.query(sql, [...infos, id_vaga]);
 
         await conn.end()
         return results
-      } catch (err) {
+    } catch (err) {
         return err.message
-      }
+    }
 }
 
-module.exports = {editarIntegralmenteCliente}
+export { editarIntegralmenteVaga }
